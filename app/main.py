@@ -18,7 +18,7 @@ fields_tks = ['created_at', 'entry_id', 'field1', 'field2', 'field3']
 
 # First we need to build the valid url
 READ_KEY = list(map(lambda x: x.strip(), open(dir + "/" + "keys", "r").readlines()))
-URL = "https://api.thingspeak.com/channels/{id_channel}/feeds.json?api_key={api_read_key}".format(
+URL = "https://api.thingspeak.com/channels/{id_channel}/feeds.json?api_key={api_read_key}&results=700".format(
     id_channel=READ_KEY[-1], api_read_key=READ_KEY[0]
 )
 
@@ -42,4 +42,4 @@ except:
 len_data = giroscope_df_clean.shape[0]
 for i in range(0, len_data):
     values = giroscope_df_clean.iloc[i].to_dict()
-    data_engine.ingest(values=values, type='on')
+    data_engine.ingest(values=values, type='off')
