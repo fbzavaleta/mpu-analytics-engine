@@ -21,6 +21,7 @@ class database:
         )
         self.str_query_on = "insert into giroscope_mpu_on(x, y, z, date_mpu, time_mpu, time_float) values({x}, {y}, {z}, '{date_mpu}','{time_mpu}',{time_float})"
         self.str_query_off = "insert into giroscope_mpu_off(x, y, z, date_mpu, time_mpu, time_float) values({x}, {y}, {z}, '{date_mpu}','{time_mpu}',{time_float})"
+        self.str_query_live = "insert into giroscope_mpu_live(x, y, z, date_mpu, time_mpu, time_float) values({x}, {y}, {z}, '{date_mpu}','{time_mpu}',{time_float})"
 
     def execute_from_query(self, sql_file):
         with open(self.dir + "/" + sql_file, "r") as reads:
@@ -33,6 +34,9 @@ class database:
             insert_query = self.str_query_on.format(**values)
         elif type == 'off':
             insert_query = self.str_query_off.format(**values)
+        else:
+            insert_query = self.str_query_live.format(**values)
+
         cursor_cnxn_msql = self.cnx_mysql.cursor()
         cursor_cnxn_msql.execute(insert_query)
         self.cnx_mysql.commit()

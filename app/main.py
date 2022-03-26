@@ -42,4 +42,4 @@ except:
 len_data = giroscope_df_clean.shape[0]
 for i in range(0, len_data):
     values = giroscope_df_clean.iloc[i].to_dict()
-    data_engine.ingest(values=values, type='off')
+    data_engine.ingest(values=values, type='live')
