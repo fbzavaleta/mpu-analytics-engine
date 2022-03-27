@@ -10,6 +10,11 @@ import os
 import requests
 import objects.DataUtils as du
 import objects.DatabaseUtils as db
+import objects.Model as model
+import pandas as pd
+from flask import Flask
+from flask import request
+import numpy as np
 
 #Parameters
 dir = os.getcwd()
@@ -43,3 +48,33 @@ len_data = giroscope_df_clean.shape[0]
 for i in range(0, len_data):
     values = giroscope_df_clean.iloc[i].to_dict()
     data_engine.ingest(values=values, type='live')
+
+# Começando o tratamento dos dados
+dataOn = data_engine.select_train_data('giroscope_mpu_on') # exemplo que sairam do comum
+dataOff = data_engine.select_train_data('giroscope_mpu_off')
+
+columns = ["id", "x", "y", "z", "date_mpu", "time_mpu", "time_float"]
+df_dataOn = pd.DataFrame(data=dataOn, columns=columns)
+df_dataOff = pd.DataFrame(data=dataOff, columns=columns)
+
+df_dataOff['label'] = 0
+df_dataOn['label'] = 1
+
+df = pd.concat([df_dataOn, df_dataOff], ignore_index=True)
+df = df[['x', 'y', 'z', 'label']]
+
+modelo = model.Model(df)
+clf = modelo.criarModel()
+
+app = Flask(__name__)
+
+@app.route("/")
+def parametros():
+    x = request.args.get("x")
+    y = request.args.get("y")
+    z = request.args.get("z")
+    predict = clf.predict(np.array([x, y, z]).reshape(1, -1))
+    return f'valor predito foi {predict}'
+    
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')

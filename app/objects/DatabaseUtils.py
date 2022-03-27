@@ -4,7 +4,7 @@ import os
 from pandas import DataFrame
 
 par_db = {
-    "host": "172.23.0.1",
+    "host": "172.17.0.1",
     "database": "streamapp",
     "user": "root",
     "password": "root",
@@ -40,3 +40,10 @@ class database:
         cursor_cnxn_msql = self.cnx_mysql.cursor()
         cursor_cnxn_msql.execute(insert_query)
         self.cnx_mysql.commit()
+
+    def select_train_data(self, train_data):
+        self.query_train = f"SELECT * FROM `{train_data}`"
+        cursor_cnxn_msql = self.cnx_mysql.cursor()
+        cursor_cnxn_msql.execute(self.query_train)
+        result = cursor_cnxn_msql.fetchall()
+        return result
