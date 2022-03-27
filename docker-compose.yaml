@@ -26,3 +26,12 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: root
+
+  backend:
+      container_name: "backend"
+      build: "app"
+      ports:
+        - "5000:5000"
+      expose:
+        - 5000
+      
