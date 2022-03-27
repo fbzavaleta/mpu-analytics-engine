@@ -4,7 +4,7 @@ import os
 from pandas import DataFrame
 
 par_db = {
-    "host": "172.23.0.1",
+    "host": "127.0.0.1",
     "database": "streamapp",
     "user": "root",
     "password": "root",
