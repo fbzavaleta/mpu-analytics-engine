@@ -11,6 +11,5 @@ RUN pip3 install mysql-connector-python
 
 WORKDIR /usr/app/
 COPY . .
-EXPOSE 5000
 
 CMD ["python3", "main.py"]

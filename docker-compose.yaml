@@ -15,7 +15,7 @@ services:
       - './db-prod:/var/lib/mysql'
       - './local:/var/lib/mysql-files'
 
-# for WebUI
+  # for WebUI
   adminer:
     depends_on:
       - db
@@ -26,3 +26,12 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: root
+  app:
+    build: app/
+    depends_on:
+      - adminer
+    ports:
+      - "5000:5000"
+    restart: always
+
+    
