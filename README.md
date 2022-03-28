@@ -9,7 +9,7 @@ Wellington dos Santos: RM87743
 
 ## APIs
 
-We made two APIs, one for getting prediction on live the data and another to predict data through a post request.
+We made two APIs, one for getting prediction on live data and another to predict data through a post request.
 
 - GET request
 
