@@ -1,0 +1,4 @@
+[client]
+user=healthchecker
+socket=/var/lib/mysql/mysql.sock
+password=healthcheckpass

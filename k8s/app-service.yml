@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector:
+    app: app-prod
+  type: ClusterIP
+  ports:
+  - name: app-service
+    port: 5000
+    protocol: TCP

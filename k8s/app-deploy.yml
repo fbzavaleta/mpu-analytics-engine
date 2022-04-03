@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-prod
+  labels:
+    app: app-prod
+spec:
+  selector:
+    matchLabels:
+      app: app-prod
+  template:
+    metadata:
+      labels:
+        app: "app-prod"
+    spec:
+      containers:
+        - name: "app-prod"
+          image: "wellington0071/model_streamapp"
+          ports:
+          - containerPort: 5000
